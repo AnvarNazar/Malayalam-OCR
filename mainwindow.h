@@ -14,6 +14,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    int blurSize = 5;
+    int charWidth = 20;
+    int charHeight = 30;
+    int contourArea = 100;
+    int blockSize = 11;
 
 private:
     Ui::MainWindow *ui;

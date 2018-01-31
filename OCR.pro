@@ -32,3 +32,5 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+LIBS += -lopencv_core -lopencv_imgcodecs -lopencv_imgproc -lopencv_ml
