@@ -44,14 +44,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionOpen_triggered()
 {
-    fileName = QFileDialog::getOpenFileName(this, "Open Image", QDir::currentPath(), tr("Image Files(*.jpg *.png *.gif *.bmp)")).toStdString();
-    if(fileName.empty()) {
-        return;
-    } else {
-        image = cv::imread(fileName);
-    }
-    processImage();
-    displayImage();
+
 }
 
 void MainWindow::processImage()
@@ -68,4 +61,40 @@ void MainWindow::displayImage()
                           imageThresholdedCopy.rows, QImage::Format_Grayscale8);
 
     ui->imageLabel->setPixmap(QPixmap::fromImage(dImage));
+}
+
+void MainWindow::on_actionImage_triggered()
+{
+    fileName = QFileDialog::getOpenFileName(this, "Open Image", QDir::currentPath(), tr("Image Files(*.jpg *.png *.gif *.bmp)")).toStdString();
+    if(fileName.empty()) {
+        return;
+    } else {
+        image = cv::imread(fileName);
+    }
+    processImage();
+    displayImage();
+}
+
+void MainWindow::on_actionTraining_File_triggered()
+{
+    trainingFileName = QFileDialog::getOpenFileName(this, "Open Training File", QDir::currentPath()).toStdString();
+    if(trainingFileName.empty()) {
+        return;
+    } else {
+        openTrainingFile();
+    }
+}
+
+void MainWindow::openTrainingFile()
+{
+    cv::FileStorage fs(trainingFileName, cv::FileStorage::READ);
+    fs["classifications"] >> classificationNumbers;
+    fs["images"] >> trainingImagesAsFlattenedFloats;
+    if(classificationNumbers.empty() || trainingImagesAsFlattenedFloats.empty()) {
+        QMessageBox::information(this, "Error", "Error opening training file");
+        return;
+    }
+    QMessageBox::information(this, "Done", "Training File opened");
+    fs.release();
+    ui->pushButton->setEnabled(true);
 }

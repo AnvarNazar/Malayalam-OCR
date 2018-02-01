@@ -12,6 +12,10 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/ml.hpp>
 
+#include <vector>
+
+#include "letters.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -34,12 +38,22 @@ public:
 
     std::string fileName;
     std::string trainingFileName;
+    Letters *letters;
+
+    cv::Mat classificationNumbers, trainingImagesAsFlattenedFloats;
+
+private:
+    void openTrainingFile();
+
 private slots:
     void on_actionOpen_triggered();
 
     void processImage();
     void displayImage();
 
+    void on_actionImage_triggered();
+
+    void on_actionTraining_File_triggered();
 private:
     Ui::MainWindow *ui;
 };
