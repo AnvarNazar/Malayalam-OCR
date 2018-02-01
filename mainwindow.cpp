@@ -49,6 +49,9 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::processImage()
 {
+    if(image.empty()) {
+        return;
+    }
     cv::cvtColor(image, imageGrayscale, CV_BGR2GRAY);
     cv::GaussianBlur(imageGrayscale, imageBlurred, cv::Size(blurSize, blurSize), 0);
     cv::adaptiveThreshold(imageBlurred, imageThresholded, 255, CV_ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY_INV, blockSize, 2);
@@ -73,6 +76,21 @@ void MainWindow::on_actionImage_triggered()
     }
     processImage();
     displayImage();
+    ui->blurSizeBox->setEnabled(true);
+    ui->blurSizeSlider->setEnabled(true);
+    ui->charWidthBox->setEnabled(true);
+    ui->charWidthSlider->setEnabled(true);
+    ui->charHeightBox->setEnabled(true);
+    ui->charHeightSlider->setEnabled(true);
+    ui->contourAreaBox->setEnabled(true);
+    ui->contourAreaSlider->setEnabled(true);
+    ui->blockSizeBox->setEnabled(true);
+    ui->blockSizeSlider->setEnabled(true);
+    ui->contourAreaSlider->setEnabled(true);
+    ui->contourAreaBox->setEnabled(true);
+    if(!classificationNumbers.empty() && !trainingImagesAsFlattenedFloats.empty()) {
+        ui->pushButton->setEnabled(true);
+    }
 }
 
 void MainWindow::on_actionTraining_File_triggered()
@@ -96,11 +114,79 @@ void MainWindow::openTrainingFile()
     }
     QMessageBox::information(this, "Done", "Training File opened");
     fs.release();
-    ui->pushButton->setEnabled(true);
+    if(!image.empty()) {
+        ui->pushButton->setEnabled(true);
+    }
 }
 
 void MainWindow::on_pushButton_clicked()
 {
     OCRDialog dialog(this, classificationNumbers, trainingImagesAsFlattenedFloats, imageThresholded);
     dialog.exec();
+}
+
+void MainWindow::on_blurSizeSlider_valueChanged(int value)
+{
+    if(value > 1 && value % 2 == 1) {
+        blurSize = value;
+        processImage();
+        displayImage();
+    }
+}
+
+void MainWindow::on_blurSizeBox_valueChanged(int arg1)
+{
+    if(arg1 > 1 && arg1 % 2 == 1) {
+        blurSize = arg1;
+        processImage();
+        displayImage();
+    }
+}
+
+void MainWindow::on_charWidthSlider_valueChanged(int value)
+{
+    charWidth = value;
+}
+
+void MainWindow::on_charWidthBox_valueChanged(int arg1)
+{
+    charWidth = arg1;
+}
+
+void MainWindow::on_charHeightSlider_valueChanged(int value)
+{
+    charHeight = value;
+}
+
+void MainWindow::on_charHeightBox_valueChanged(int arg1)
+{
+    charHeight = arg1;
+}
+
+void MainWindow::on_contourAreaSlider_valueChanged(int value)
+{
+    contourArea = value;
+}
+
+void MainWindow::on_contourAreaBox_valueChanged(int arg1)
+{
+    contourArea = arg1;
+}
+
+void MainWindow::on_blockSizeSlider_valueChanged(int value)
+{
+    if(value > 1 && value % 2 == 1) {
+        blockSize = value;
+        processImage();
+        displayImage();
+    }
+}
+
+void MainWindow::on_blockSizeBox_valueChanged(int arg1)
+{
+    if(arg1 > 1 && arg1 % 2 == 1) {
+        blockSize = arg1;
+        processImage();
+        displayImage();
+    }
 }

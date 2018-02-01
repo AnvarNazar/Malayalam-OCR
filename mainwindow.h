@@ -58,6 +58,26 @@ private slots:
     void on_actionTraining_File_triggered();
     void on_pushButton_clicked();
 
+    void on_blurSizeSlider_valueChanged(int value);
+
+    void on_blurSizeBox_valueChanged(int arg1);
+
+    void on_charWidthSlider_valueChanged(int value);
+
+    void on_charWidthBox_valueChanged(int arg1);
+
+    void on_charHeightSlider_valueChanged(int value);
+
+    void on_charHeightBox_valueChanged(int arg1);
+
+    void on_contourAreaSlider_valueChanged(int value);
+
+    void on_contourAreaBox_valueChanged(int arg1);
+
+    void on_blockSizeSlider_valueChanged(int value);
+
+    void on_blockSizeBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 };

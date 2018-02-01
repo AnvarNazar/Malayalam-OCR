@@ -15,7 +15,7 @@ OCRDialog::OCRDialog(QWidget *parent, cv::Mat classificationNumbers,
     this->imageWidth = imageWidth;
     this->imageHeight = imageHeight;
 
-    cv::findContours(image, ptContours, v4iHierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+    cv::findContours(image, ptContours, v4iHierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
 
     for(unsigned int i = 0; i < ptContours.size(); i++) {
         ContourWithData contour;
