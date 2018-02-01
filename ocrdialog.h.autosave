@@ -21,8 +21,8 @@ class OCRDialog : public QDialog
 
 public:
     explicit OCRDialog(QWidget *parent = 0,
-                       cv::Mat classificationNumbers = cv::Mat(),
-                       cv::Mat trainingImagesAsFlattenedFloats = cv::Mat(),
+                       cv::Mat classificationNumbers = 0,
+                       cv::Mat trainingImagesAsFlattenedFloats = 0,
                        int minContourArea = 100,
                        int imageWidth = 20,
                        int imageHeight = 30);
@@ -44,8 +44,8 @@ private:
     std::string strFinalStringNumbers;
 
     // Ptr array for KNearest machine learning algorithm
-    cv::Ptr<cv::ml::KNearest> kNearest;
-
+    cv::Ptr<cv::ml::KNearest> kNearest(cv::ml::KNearest::create());
+    
     void findText();
 };
 
