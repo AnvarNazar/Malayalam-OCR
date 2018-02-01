@@ -9,6 +9,8 @@
 
 #include <vector>
 
+#include "contourwithdata.h"
+
 namespace Ui {
 class OCRDialog;
 }
@@ -35,6 +37,11 @@ private:
     int imageWidth;
     int imageHeight;
 
+    std::vector<ContourWithData> allContoursWithData;
+    std::vector<ContourWithData> validContoursWithData;
+    std::vector<std::vector<cv::Point>> ptContours;
+    std::vector<cv::Vec4i> v4iHierarchy;
+    std::string strFinalStringNumbers;
 };
 
 #endif // OCRDIALOG_H
