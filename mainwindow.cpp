@@ -98,3 +98,9 @@ void MainWindow::openTrainingFile()
     fs.release();
     ui->pushButton->setEnabled(true);
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    OCRDialog dialog(this, classificationNumbers, trainingImagesAsFlattenedFloats, imageThresholded);
+    dialog.exec();
+}

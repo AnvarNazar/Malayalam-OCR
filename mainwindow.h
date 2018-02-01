@@ -16,6 +16,8 @@
 
 #include "letters.h"
 
+#include "ocrdialog.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -54,6 +56,8 @@ private slots:
     void on_actionImage_triggered();
 
     void on_actionTraining_File_triggered();
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

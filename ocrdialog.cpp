@@ -2,7 +2,7 @@
 #include "ui_ocrdialog.h"
 
 OCRDialog::OCRDialog(QWidget *parent, cv::Mat classificationNumbers,
-                     cv::Mat trainingImagesAsFlattenedFloats,
+                     cv::Mat trainingImagesAsFlattenedFloats, cv::Mat image,
                      int minContourArea, int imageWidth, int imageHeight) :
     QDialog(parent),
     ui(new Ui::OCRDialog)
@@ -11,6 +11,7 @@ OCRDialog::OCRDialog(QWidget *parent, cv::Mat classificationNumbers,
     this->classificationNumbers = classificationNumbers;
     this->trainingImagesAsFlattenedFloats = trainingImagesAsFlattenedFloats;
     this->minContourArea = minContourArea;
+    this->image = image;
     this->imageWidth = imageWidth;
     this->imageHeight = imageHeight;
 
@@ -42,12 +43,16 @@ OCRDialog::OCRDialog(QWidget *parent, cv::Mat classificationNumbers,
 
 void OCRDialog::findText()
 {
-    for(auto contourWithData:validContoursWithData) {
+    if(validContoursWithData.empty()) {
+        QMessageBox::information(this, "Informations", "No valid text found in the image");
+        return;
+    }
+    for(unsigned int i = 0; i < validContoursWithData.size(); i++) {
         cv::rectangle(classificationNumbers,
-                      contourWithData.boundingRect,
+                      validContoursWithData[i].boundingRect,
                       cv::Scalar(0, 255, 0), 2);
 
-        cv::Mat matROI = image(contourWithData.boundingRect);
+        cv::Mat matROI = image(validContoursWithData[i].boundingRect);
         cv::Mat matROIResized;
         cv::resize(matROI, matROIResized, cv::Size(imageWidth, imageHeight));
 
@@ -59,7 +64,7 @@ void OCRDialog::findText()
         float fCurrentChar = (float) currentChar.at<float>(0, 0);
         strFinalStringNumbers = strFinalStringNumbers + char(int(fCurrentChar)) + " ";
     }
-
+    std::cout<<strFinalStringNumbers<<std::endl;
 }
 
 OCRDialog::~OCRDialog()

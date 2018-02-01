@@ -2,6 +2,7 @@
 #define OCRDIALOG_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
@@ -23,6 +24,7 @@ public:
     explicit OCRDialog(QWidget *parent = 0,
                        cv::Mat classificationNumbers = cv::Mat(),
                        cv::Mat trainingImagesAsFlattenedFloats = cv::Mat(),
+                       cv::Mat image = cv::Mat(),
                        int minContourArea = 100,
                        int imageWidth = 20,
                        int imageHeight = 30);
