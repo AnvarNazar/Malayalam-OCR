@@ -31,6 +31,9 @@ OCRDialog::OCRDialog(QWidget *parent, cv::Mat classificationNumbers,
 
     // sort contours from left to right
     std::sort(validContoursWithData.begin(), validContoursWithData.end(), ContourWithData::sorByBoundingRectXPosition);
+
+    // train the ml algorithm
+    kNearest->train(trainingImagesAsFlattenedFloats, cv::ml::ROW_SAMPLE, classificationNumbers);
 }
 
 OCRDialog::~OCRDialog()

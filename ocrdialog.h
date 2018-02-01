@@ -42,6 +42,9 @@ private:
     std::vector<std::vector<cv::Point>> ptContours;
     std::vector<cv::Vec4i> v4iHierarchy;
     std::string strFinalStringNumbers;
+
+    // Ptr array for KNearest machine learning algorithm
+    cv::Ptr<cv::ml::KNearest> kNearest(cv::ml::KNearest::create());
 };
 
 #endif // OCRDIALOG_H
