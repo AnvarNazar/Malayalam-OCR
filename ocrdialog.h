@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "contourwithdata.h"
+#include "letters.h"
 
 namespace Ui {
 class OCRDialog;
@@ -39,11 +40,13 @@ private:
     int imageWidth;
     int imageHeight;
 
+    Letters *letters;
+
     std::vector<ContourWithData> allContoursWithData;
     std::vector<ContourWithData> validContoursWithData;
     std::vector<std::vector<cv::Point>> ptContours;
     std::vector<cv::Vec4i> v4iHierarchy;
-    std::string strFinalStringNumbers;
+    std::string finalString;
 
     // Ptr array for KNearest machine learning algorithm
     cv::Ptr<cv::ml::KNearest> kNearest;

@@ -43,6 +43,7 @@ OCRDialog::OCRDialog(QWidget *parent, cv::Mat classificationNumbers,
 
 void OCRDialog::findText()
 {
+    letters = new Letters("Letters");
     if(validContoursWithData.empty()) {
         QMessageBox::information(this, "Informations", "No valid text found in the image");
         return;
@@ -62,9 +63,10 @@ void OCRDialog::findText()
         cv::Mat currentChar(0, 0, CV_32F);
         kNearest->findNearest(flattenedFloat, 1, currentChar);
         float fCurrentChar = (float) currentChar.at<float>(0, 0);
-        strFinalStringNumbers = strFinalStringNumbers + char(int(fCurrentChar)) + " ";
+        std::string str = letters->getChar((int) fCurrentChar);
+        std::cout<<str;
+        this->finalString += str;
     }
-    std::cout<<strFinalStringNumbers<<std::endl;
 }
 
 OCRDialog::~OCRDialog()

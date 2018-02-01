@@ -25,3 +25,14 @@ Letters::Letters(char *fileName)
     this->fileName = fileName;
     readLetters();
 }
+
+std::string Letters::getChar(int ch)
+{
+    if(mLetters.empty()) {
+        return std::string();
+    }
+    for(auto x : mLetters) {
+        if(ch == x.second)
+            return x.first;
+    }
+}

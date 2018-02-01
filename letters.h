@@ -13,5 +13,6 @@ public:
     std::string fileName;
     void readLetters();
     Letters(char *fileName);
+    std::string getChar(int ch);
 };
 #endif // LETTERS_H
