@@ -41,3 +41,37 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_actionOpen_triggered()
+{
+    fileName = QFileDialog::getOpenFileName(this, "Open Image", QDir::currentPath(), tr("Image Files(*.jpg *.png *.gif *.bmp)"));
+    if(fileName.empty()) {
+        return;
+    }
+    image.release();
+    processImage();
+    displayImage();
+}
+
+void MainWindow::processImage()
+{
+    if(image.empty()) {
+        image = cv::imread(fileName);
+        if(image.empty()) {
+            QMessageBox::information(this, "Error", "Failed to open image");
+            return;
+        }
+        cv::cvtColor(image, imageGrayscale, CV_BGR2GRAY);
+    }
+    cv::GaussianBlur(imageGrayscale, imageBlurred, cv::Size(blurSize, blurSize), 0);
+    cv::adaptiveThreshold(imageBlurred, imageGrayscale, 255, CV_ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY_INV, blockSize, 2);
+    imageThresholdedCopy = imageThresholded.clone();
+}
+
+void MainWindow::displayImage()
+{
+    this->dImage = QImage(imageThresholdedCopy.data, imageThresholdedCopy.cols,
+                          imageThresholdedCopy.rows, QImage::Format_Grayscale8);
+
+    ui->label->setPixmap(QPixmap::fromImage(dImage));
+}
