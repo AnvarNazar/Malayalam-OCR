@@ -67,9 +67,15 @@ void OCRDialog::findText()
         std::cout<<str;
         this->finalString += str;
     }
+    setText();
 }
 
 OCRDialog::~OCRDialog()
 {
     delete ui;
+}
+
+void OCRDialog::setText()
+{
+    ui->displayText->setText(QString::fromStdString(finalString));
 }

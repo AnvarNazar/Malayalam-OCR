@@ -52,6 +52,7 @@ private:
     cv::Ptr<cv::ml::KNearest> kNearest;
 
     void findText();
+    void setText();
 };
 
 #endif // OCRDIALOG_H
