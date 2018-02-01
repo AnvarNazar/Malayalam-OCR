@@ -1,5 +1,11 @@
 #ifndef LETTERS
 #define LETTERS
+
+#include <map>
+#include <sstream>
+#include <iostream>
+#include <fstream>
+
 class Letters
 {
 public:
