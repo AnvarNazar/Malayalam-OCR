@@ -26,13 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    letters.cpp
+    letters.cpp \
+    ocrdialog.cpp \
+    contourwithdata.cpp
 
 HEADERS += \
         mainwindow.h \
-    letters.h
+    letters.h \
+    ocrdialog.h \
+    contourwithdata.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    ocrdialog.ui
 
 LIBS += -lopencv_core -lopencv_imgcodecs -lopencv_imgproc -lopencv_ml
