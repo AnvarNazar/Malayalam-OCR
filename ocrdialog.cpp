@@ -1,5 +1,7 @@
 #include "ocrdialog.h"
 #include "ui_ocrdialog.h"
+#include <QFile>
+#include <QFileDialog>
 
 OCRDialog::OCRDialog(QWidget *parent, cv::Mat classificationNumbers,
                      cv::Mat trainingImagesAsFlattenedFloats, cv::Mat image,
@@ -78,4 +80,20 @@ OCRDialog::~OCRDialog()
 void OCRDialog::setText()
 {
     ui->displayText->setText(QString::fromStdString(finalString));
+}
+
+void OCRDialog::on_cancelButton_clicked()
+{
+    this->close();
+}
+
+void OCRDialog::on_saveButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Save", QDir::currentPath());
+    QString data = this->ui->displayText->toPlainText();
+    QFile file(fileName);
+    if(file.open(QIODevice::ReadWrite)){
+        QTextStream out(&file);
+        out<<data;
+    }
 }
