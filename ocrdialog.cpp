@@ -2,6 +2,7 @@
 #include "ui_ocrdialog.h"
 #include <QFile>
 #include <QFileDialog>
+#include <QTextStream>
 
 OCRDialog::OCRDialog(QWidget *parent, cv::Mat classificationNumbers,
                      cv::Mat trainingImagesAsFlattenedFloats, cv::Mat image,

@@ -31,6 +31,11 @@ public:
                        int imageHeight = 30);
     ~OCRDialog();
 
+private slots:
+    void on_cancelButton_clicked();
+
+    void on_saveButton_clicked();
+
 private:
     Ui::OCRDialog *ui;
     cv::Mat image;
